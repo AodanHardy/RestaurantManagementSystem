@@ -18,6 +18,15 @@ public class User {
     }
 
     /**
+     * Gets hashed password.
+     *
+     * @return the hashed password
+     */
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    /**
      * Gets user id.
      *
      * @return the user id
