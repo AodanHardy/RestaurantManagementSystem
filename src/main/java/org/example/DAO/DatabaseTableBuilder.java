@@ -18,23 +18,10 @@ public class DatabaseTableBuilder {
 
             // Create Users Table
             StringBuilder createUserTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS users (");
-            createUserTableSQL.append("user_id INT PRIMARY KEY AUTO_INCREMENT,");
+            createUserTableSQL.append("user_id SERIAL PRIMARY KEY,");
             createUserTableSQL.append("username VARCHAR(255) UNIQUE NOT NULL,");
             createUserTableSQL.append("password VARCHAR(255) NOT NULL,");
-            createUserTableSQL.append("staffType ENUM(");
-
-            // Add enum values dynamically
-            StaffType[] staffTypes = StaffType.values();
-            for (int i = 0; i < staffTypes.length; i++) {
-                createUserTableSQL.append("'");
-                createUserTableSQL.append(staffTypes[i].name());
-                createUserTableSQL.append("'");
-                if (i < staffTypes.length - 1) {
-                    createUserTableSQL.append(",");
-                }
-            }
-
-            createUserTableSQL.append(") NOT NULL");
+            createUserTableSQL.append("staffType VARCHAR(255) NOT NULL");
 
             createUserTableSQL.append(")");
 
