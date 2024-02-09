@@ -2,10 +2,10 @@ package org.example.DAO;
 
 import java.sql.Connection;
 
-public class OrderItemDao {
+public class ReservationDao {
     Connection connection;
 
-    public OrderItemDao(Connection connection) {
+    public ReservationDao(Connection connection) {
         this.connection = connection;
     }
 

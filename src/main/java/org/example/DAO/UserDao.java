@@ -43,6 +43,10 @@ public class UserDao {
         }
     }
 
+    public void updateUser(User user){}
+
+    public void deleteUser(User user){}
+
     // Method to retrieve a user by username
     public User getUserByUsername(String username) {
         String sql = "SELECT * FROM public.users WHERE username = ?";
