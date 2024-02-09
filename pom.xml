@@ -22,9 +22,15 @@
         </dependency>
 
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.14.0</version> <!-- Use the latest version -->
+        </dependency>
+
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.23</version> <!-- Use the latest version available -->
+            <version>42.5.1</version> <!-- Use the latest version available -->
         </dependency>
     </dependencies>
 

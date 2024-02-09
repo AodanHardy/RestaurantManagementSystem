@@ -1,14 +1,16 @@
 package org.example.DAO;
 
+import org.example.Config.DatabaseConfig;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    public static Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/restaurant_management_system_db";
-        String username = "aodan";
-        String password = "amymagee";
+    public static Connection getConnection(DatabaseConfig config) throws SQLException {
+        String url = config.getUrl();
+        String username = config.getUsername();
+        String password = config.getPassword();
 
         return DriverManager.getConnection(url, username, password);
     }
