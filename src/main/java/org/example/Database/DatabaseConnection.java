@@ -1,4 +1,4 @@
-package org.example.DAO;
+package org.example.Database;
 
 import org.example.Config.DatabaseConfig;
 

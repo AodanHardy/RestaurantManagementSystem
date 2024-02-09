@@ -2,8 +2,8 @@ package org.example;
 
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
-import org.example.DAO.DatabaseConnection;
-import org.example.DAO.DatabaseTableBuilder;
+import org.example.Database.DatabaseConnection;
+import org.example.Database.DatabaseTableBuilder;
 
 
 import java.sql.Connection;
