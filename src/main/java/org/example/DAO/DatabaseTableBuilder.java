@@ -22,9 +22,7 @@ public class DatabaseTableBuilder {
             createUserTableSQL.append("username VARCHAR(255) UNIQUE NOT NULL,");
             createUserTableSQL.append("password VARCHAR(255) NOT NULL,");
             createUserTableSQL.append("staffType VARCHAR(255) NOT NULL");
-
             createUserTableSQL.append(")");
-
             statement.executeUpdate(createUserTableSQL.toString());
 
 

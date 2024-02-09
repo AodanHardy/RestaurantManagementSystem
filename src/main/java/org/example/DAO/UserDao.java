@@ -18,7 +18,7 @@ public class UserDao {
 
     // Method to save a user to the database
     public void saveUser(User user) {
-        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (username, password, staffType) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
@@ -45,7 +45,7 @@ public class UserDao {
 
     // Method to retrieve a user by username
     public User getUserByUsername(String username) {
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM public.users WHERE username = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
@@ -56,7 +56,7 @@ public class UserDao {
                     user.setUserId(resultSet.getInt("user_id"));
                     user.setUsername(resultSet.getString("username"));
                     user.setPassword(resultSet.getString("password"));
-                    user.setRole(StaffType.valueOf(resultSet.getString("role")));
+                    user.setRole(StaffType.valueOf(resultSet.getString("stafftype")));
                     return user;
                 }
             }

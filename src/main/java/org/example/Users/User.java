@@ -17,6 +17,11 @@ public class User {
     public User() {
     }
 
+    public User(String username, StaffType role) {
+        this.username = username;
+        this.role = role;
+    }
+
     /**
      * Gets hashed password.
      *
