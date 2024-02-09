@@ -9,9 +9,11 @@ public class MenuItemDao {
         this.connection = connection;
     }
 
-    public void save(){}
+    public void save(MenuItemDao menuItemDao){
+        String sql = "INSERT INTO menuItems (username, password, staffType) VALUES (?, ?, ?)";
+    }
 
-    public void update(){}
+    public void update(MenuItemDao menuItemDao){}
 
-    public void delete(){}
+    public void delete(MenuItemDao menuItemDao){}
 }
