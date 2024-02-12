@@ -1,9 +1,11 @@
 package org.example;
 
 import org.example.Classes.MenuItem;
+import org.example.Classes.Table;
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
 import org.example.DAO.MenuItemDao;
+import org.example.DAO.TableDao;
 import org.example.Database.DatabaseConnection;
 import org.example.Database.DatabaseTableBuilder;
 
@@ -31,11 +33,17 @@ public class Main {
          */
 
 
+        Table table = new Table(1, 5);
+
+        TableDao tableDao = new TableDao(connection);
+
+        tableDao.save(table);
 
 
 
-
-
+        /**
+         * Testing
+         */
 
 
 
