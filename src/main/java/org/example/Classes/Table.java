@@ -4,6 +4,8 @@ package org.example.Classes;
  * The type Table.
  */
 public class Table {
+
+    private int tableId;
     private int tableNumber;
     private int capacity;
 
@@ -16,6 +18,14 @@ public class Table {
     public Table(int tableNumber, int capacity) {
         this.tableNumber = tableNumber;
         this.capacity = capacity;
+    }
+
+    public int getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(int tableId) {
+        this.tableId = tableId;
     }
 
     /**

@@ -18,7 +18,7 @@ public class UserDao {
 
     // Method to save a user to the database
     public void save(User user) {
-        String sql = "INSERT INTO users (username, password, staffType) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (username, password, staff_type) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
@@ -28,7 +28,7 @@ public class UserDao {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                System.out.println("USER NOT SAVED");
             }
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
