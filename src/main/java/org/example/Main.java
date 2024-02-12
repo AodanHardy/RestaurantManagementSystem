@@ -30,11 +30,8 @@ public class Main {
          * Testing
          */
 
-        MenuItem menuItem = new MenuItem("Cheese Burger", "Cheese burger with onions", 4.99);
 
-        MenuItemDao menuItemDao = new MenuItemDao(connection);
 
-        menuItemDao.save(menuItem);
 
 
 

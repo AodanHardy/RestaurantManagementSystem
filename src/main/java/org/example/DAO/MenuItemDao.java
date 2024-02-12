@@ -20,7 +20,7 @@ public class MenuItemDao {
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, menuItem.getItemName());
             statement.setString(2, menuItem.getDescription());
-            statement.setString(3, String.valueOf(menuItem.getPrice()));
+            statement.setDouble(3, menuItem.getPrice());
 
             int affectedRows = statement.executeUpdate();
 

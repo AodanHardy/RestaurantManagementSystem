@@ -1,5 +1,6 @@
 package org.example.DAO;
 
+import org.example.Constants.TableNames;
 import org.example.Users.StaffType;
 import org.example.Users.User;
 
@@ -18,7 +19,7 @@ public class UserDao {
 
     // Method to save a user to the database
     public void save(User user) {
-        String sql = "INSERT INTO users (username, password, staff_type) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO "+ TableNames.USERS +" (username, password, staff_type) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
@@ -49,7 +50,7 @@ public class UserDao {
 
     // Method to retrieve a user by username
     public User get(String username) {
-        String sql = "SELECT * FROM public.users WHERE username = ?";
+        String sql = "SELECT * FROM public."+TableNames.USERS+" WHERE username = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
