@@ -28,21 +28,22 @@ public class DatabaseTableBuilder {
 
 
             // Create Tables Table
-            StringBuilder createTablesTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS "+TableNames.TABLES+" (");
-            createTablesTableSQL.append("table_id SERIAL PRIMARY KEY,");
-            createTablesTableSQL.append("table_number int UNIQUE NOT NULL,");
-            createTablesTableSQL.append("capacity int NOT NULL");
+            StringBuilder createTablesTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS " + TableNames.TABLES + " (");
+            createTablesTableSQL.append("table_number INT PRIMARY KEY,");
+            createTablesTableSQL.append("capacity INT NOT NULL");
             createTablesTableSQL.append(")");
+
             statement.executeUpdate(createTablesTableSQL.toString());
+
 
             // Create Reservation Table
             StringBuilder createReservationTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS "+TableNames.RESERVATIONS+" (");
             createReservationTableSQL.append("reservation_id SERIAL PRIMARY KEY,");
-            createReservationTableSQL.append("table_id INT NOT NULL,");
+            createReservationTableSQL.append("table_number INT NOT NULL,");
             createReservationTableSQL.append("date DATE NOT NULL,");
             createReservationTableSQL.append("start_time TIME NOT NULL,");
             createReservationTableSQL.append("end_time TIME NOT NULL,");
-            createReservationTableSQL.append("FOREIGN KEY (table_id) REFERENCES "+TableNames.TABLES+"(table_id)");
+            createReservationTableSQL.append("FOREIGN KEY (table_number) REFERENCES "+TableNames.TABLES+"(table_number)");
             createReservationTableSQL.append(")");
 
             statement.executeUpdate(createReservationTableSQL.toString());
@@ -61,12 +62,12 @@ public class DatabaseTableBuilder {
             // Create Orders Table
             StringBuilder createOrdersTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS "+TableNames.ORDERS+" (");
             createOrdersTableSQL.append("order_id SERIAL PRIMARY KEY,");
-            createOrdersTableSQL.append("table_id INT,");
+            createOrdersTableSQL.append("table_number INT,");
             createOrdersTableSQL.append("user_id INT,");
             createOrdersTableSQL.append("time TIMESTAMP NOT NULL,");
             createOrdersTableSQL.append("total DOUBLE PRECISION NOT NULL,");
             createOrdersTableSQL.append("is_paid BOOLEAN NOT NULL,");
-            createOrdersTableSQL.append("FOREIGN KEY (table_id) REFERENCES "+TableNames.TABLES+"(table_id),");
+            createOrdersTableSQL.append("FOREIGN KEY (table_number) REFERENCES "+TableNames.TABLES+"(table_number),");
             createOrdersTableSQL.append("FOREIGN KEY (user_id) REFERENCES "+TableNames.USERS+"(user_id)");
             createOrdersTableSQL.append(")");
 

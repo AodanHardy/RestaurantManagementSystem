@@ -33,13 +33,6 @@ public class Main {
          */
 
 
-        Table table = new Table(1, 5);
-
-        TableDao tableDao = new TableDao(connection);
-
-        tableDao.save(table);
-
-
 
         /**
          * Testing

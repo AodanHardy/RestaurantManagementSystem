@@ -28,13 +28,6 @@ public class TableDao {
                 System.out.println("TABLE NOT SAVED");
             }
 
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    table.setTableId(generatedKeys.getInt(1));
-                } else {
-                    System.out.println(("Creating table failed, no ID obtained."));
-                }
-            }
         }catch (SQLException e){
             System.out.println("TABLE SAVE SQL EXCEPTION");
         }
