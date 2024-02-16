@@ -2,6 +2,7 @@ package org.example.DAO;
 
 import org.example.Classes.MenuItem;
 import org.example.Constants.TableNames;
+import org.example.Logging.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MenuItemDao {
-    Connection connection;
+    Logger logger = new Logger(MenuItemDao.class);
+    private Connection connection;
 
     public MenuItemDao(Connection connection) {
         this.connection = connection;
@@ -26,7 +28,7 @@ public class MenuItemDao {
 
             // check if item was saved
             if (affectedRows == 0) {
-                System.out.println("MENUITEM NOT SAVED");
+                logger.error("MENUITEM NOT SAVED");
             }
 
             // get next to set id to passed in object
@@ -34,7 +36,7 @@ public class MenuItemDao {
                 if (generatedKeys.next()) {
                     menuItem.setItemId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
+                    logger.error("Creating user failed, no ID obtained.");
                 }
             }
 

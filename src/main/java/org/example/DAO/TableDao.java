@@ -2,6 +2,7 @@ package org.example.DAO;
 
 import org.example.Classes.Table;
 import org.example.Constants.TableNames;
+import org.example.Logging.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TableDao {
-    Connection connection;
+    Logger logger = new Logger(TableDao.class);
+    private Connection connection;
 
     public TableDao(Connection connection) {
         this.connection = connection;
@@ -25,11 +27,11 @@ public class TableDao {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                System.out.println("TABLE NOT SAVED");
+                logger.error("TABLE NOT SAVED");
             }
 
         }catch (SQLException e){
-            System.out.println("TABLE SAVE SQL EXCEPTION");
+            logger.error("TABLE SAVE SQL EXCEPTION");
         }
 
     }

@@ -1,6 +1,7 @@
 package org.example.Database;
 
 import org.example.Constants.TableNames;
+import org.example.Logging.Logger;
 import org.example.Users.StaffType;
 
 import java.sql.Connection;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseTableBuilder {
+    Logger logger = new Logger(DatabaseTableBuilder.class);
     private Connection connection;
 
     public DatabaseTableBuilder(Connection connection) {
@@ -87,10 +89,11 @@ public class DatabaseTableBuilder {
 
             statement.executeUpdate(createOrderItemsTableSQL.toString());
 
+            logger.info("DATABASE TABLES BUILT");
 
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            logger.error("BUILDING TABLES THREW EXCEPTION: " + e.getMessage());
         }
     }
 

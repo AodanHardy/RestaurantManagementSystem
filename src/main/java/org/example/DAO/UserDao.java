@@ -1,6 +1,7 @@
 package org.example.DAO;
 
 import org.example.Constants.TableNames;
+import org.example.Logging.Logger;
 import org.example.Users.StaffType;
 import org.example.Users.User;
 
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao {
+    Logger logger = new Logger(UserDao.class);
     private Connection connection;
 
     // Constructor to receive a database connection
@@ -29,14 +31,14 @@ public class UserDao {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                System.out.println("USER NOT SAVED");
+                logger.info("USER NOT SAVED");
             }
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     user.setUserId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
+                    logger.error("Creating user failed, no ID obtained.");
                 }
             }
         } catch (SQLException e) {
@@ -66,7 +68,7 @@ public class UserDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle or log the exception as needed
+            logger.error(e.getMessage());
         }
 
         return null; // Return null if the user with the specified username is not found
