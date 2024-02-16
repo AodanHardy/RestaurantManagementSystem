@@ -1,6 +1,6 @@
-package org.example.Classes;
+package org.example.Orders;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
+import java.util.List;
 
 /**
  * The type Order.
@@ -12,6 +12,7 @@ public class Order {
     private String time;
     private Double total;
     private Boolean isPaid;
+    private List<OrderItem> orderItems;
 
     /**
      * Instantiates a new Order.
@@ -130,5 +131,17 @@ public class Order {
      */
     public void setPaid(Boolean paid) {
         isPaid = paid;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void addToOrderItems(OrderItem orderItem){
+        this.orderItems.add(orderItem);
     }
 }
