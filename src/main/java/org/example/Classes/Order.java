@@ -11,6 +11,7 @@ public class Order {
     private int staffId;
     private String time;
     private Double total;
+    private Boolean isPaid;
 
     /**
      * Instantiates a new Order.
@@ -111,5 +112,23 @@ public class Order {
      */
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    /**
+     * Gets paid.
+     *
+     * @return the paid
+     */
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    /**
+     * Sets paid.
+     *
+     * @param paid the paid
+     */
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
     }
 }

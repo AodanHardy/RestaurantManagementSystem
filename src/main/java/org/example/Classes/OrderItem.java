@@ -13,7 +13,6 @@ public class OrderItem {
 
     private Double subtotal;
 
-    private Boolean isPaid;
 
     /**
      * Instantiates a new Order item.
@@ -129,21 +128,5 @@ public class OrderItem {
         this.subtotal = subtotal;
     }
 
-    /**
-     * Gets paid.
-     *
-     * @return the paid
-     */
-    public Boolean getPaid() {
-        return isPaid;
-    }
 
-    /**
-     * Sets paid.
-     *
-     * @param paid the paid
-     */
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
-    }
 }

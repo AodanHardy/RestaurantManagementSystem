@@ -1,0 +1,7 @@
+{
+  "databaseConfig": {
+    "url": "jdbc:postgresql://localhost:5432/restaurant_management_system_db",
+    "username": "aodan",
+    "password": "amymagee"
+  }
+}

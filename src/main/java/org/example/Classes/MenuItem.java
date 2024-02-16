@@ -95,7 +95,7 @@ public class MenuItem {
      *
      * @return the price
      */
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
