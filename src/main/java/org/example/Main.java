@@ -8,12 +8,15 @@ import org.example.DAO.MenuItemDao;
 import org.example.DAO.TableDao;
 import org.example.Database.DatabaseConnection;
 import org.example.Database.DatabaseTableBuilder;
+import org.example.Logging.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        Logger logger = new Logger(Main.class);
+
         // Load config
         Config config = ConfigMapper.getConfig();
 
