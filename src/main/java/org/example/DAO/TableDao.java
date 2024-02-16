@@ -31,7 +31,7 @@ public class TableDao {
             }
 
         }catch (SQLException e){
-            logger.error("TABLE SAVE SQL EXCEPTION");
+            logger.error("TABLE SAVE SQL EXCEPTION: "+e.getMessage());
         }
 
     }
