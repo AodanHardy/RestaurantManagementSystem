@@ -5,11 +5,9 @@ package org.example.Orders;
  */
 public class OrderItem {
     private int orderItemId;
-
     private int itemId;
-
     private int quantity;
-
+    private String specialRequests;
     private Double subtotal;
 
     public OrderItem() {
@@ -42,6 +40,14 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getSpecialRequests() {
+        return specialRequests;
+    }
+
+    public void setSpecialRequests(String specialRequests) {
+        this.specialRequests = specialRequests;
     }
 
     public Double getSubtotal() {

@@ -24,7 +24,9 @@ public class OrderDao {
         this.connection = connection;
     }
 
-    public void save(Order order){}
+    public void save(Order order){
+
+    }
 
     public void update(Order order){}
 

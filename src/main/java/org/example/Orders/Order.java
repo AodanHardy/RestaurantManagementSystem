@@ -1,5 +1,6 @@
 package org.example.Orders;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class Order {
     public Order(int tableNumber, int staffId) {
         this.tableNumber = tableNumber;
         this.staffId = staffId;
+        orderItems = new ArrayList<>();
     }
 
     /**
