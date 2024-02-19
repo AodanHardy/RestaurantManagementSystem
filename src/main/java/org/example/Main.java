@@ -41,14 +41,14 @@ public class Main {
          * Testing
          */
 
-//        Table table = new Table(1, 3);
-//        TableDao tableDao = new TableDao(connection);
-//        tableDao.save(table);
-//
-//        UserDao userDao = new UserDao(connection);
-//        User user = new User("aodan", StaffType.MANAGER);
-//        user.setPassword("test");
-//        userDao.save(user);
+        Table table = new Table(1, 3);
+        TableDao tableDao = new TableDao(connection);
+        tableDao.save(table);
+
+        UserDao userDao = new UserDao(connection);
+        User user = new User("aodan", StaffType.MANAGER);
+        user.setPassword("test");
+        userDao.save(user);
 
 
         Order order = new Order(1, 1);

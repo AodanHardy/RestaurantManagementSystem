@@ -66,7 +66,7 @@ public class DatabaseTableBuilder {
             createOrdersTableSQL.append("order_id SERIAL PRIMARY KEY,");
             createOrdersTableSQL.append("table_number INT,");
             createOrdersTableSQL.append("user_id INT,");
-            createOrdersTableSQL.append("time TIMESTAMP,");
+            createOrdersTableSQL.append("time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,");
             createOrdersTableSQL.append("total DOUBLE PRECISION NOT NULL,");
             createOrdersTableSQL.append("is_paid BOOLEAN NOT NULL,");
             createOrdersTableSQL.append("is_canceled BOOLEAN NOT NULL,");

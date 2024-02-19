@@ -7,6 +7,7 @@ import org.example.Orders.OrderItem;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -42,7 +43,27 @@ public class OrderDao {
 
             int affectedRows = statement.executeUpdate();
 
-            logger.error("ORDER SAVED: ");
+
+            if (affectedRows == 0) {
+                logger.error("ORDER NOT SAVED");
+                return false;
+            }
+
+            // get next to set id to passed in object
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    order.setOrderId(generatedKeys.getInt(1));
+                } else {
+                    logger.error("ODER NOT SAVED, NO ID OBTAINED");
+                    return false;
+                }
+            }
+            logger.info("ORDER SAVED: " + order.getOrderId());
+
+            // from here I need to save the order items, then update the total
+
+
+
             return true;
         } catch (SQLException e) {
             logger.error("ORDER FAILED TO SAVE: " + e.getMessage());
