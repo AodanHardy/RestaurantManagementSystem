@@ -62,6 +62,17 @@ public class OrderDao {
 
             // from here I need to save the order items, then update the total
 
+            String itemSql = "INSERT INTO " + TableNames.ORDER_ITEMS + " (order_id, item_id," +
+                    " special_instructions, quantity, subtotal) VALUES (?, ?, ?, ?, ?)";
+
+
+            for (OrderItem orderItem : order.getOrderItems())
+                try (PreparedStatement itemStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
+                    itemStatement.setInt(1, orderItem.getOrderId());
+                    itemStatement.setInt(2, orderItem.getItemId());
+                    itemStatement.setString(3, orderItem.getSpecialRequests());
+                    itemStatement.setInt(4, orderItem.getQuantity());
+                }
 
 
             return true;
@@ -76,7 +87,7 @@ public class OrderDao {
 
     public void update(Order order){}
 
-    public void pay(){}
+    public void payAll(){}
     public void partPay(){}
     public void deleteOrderItem(){}
     public void deleteOrder(){}

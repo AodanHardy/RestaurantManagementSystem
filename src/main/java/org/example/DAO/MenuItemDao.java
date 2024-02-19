@@ -17,7 +17,7 @@ public class MenuItemDao {
         this.connection = connection;
     }
 
-    public void save(MenuItem menuItem){
+    public void save(MenuItem menuItem) {
         String sql = "INSERT INTO " + TableNames.MENU_ITEMS + " (item_name, description, price) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, menuItem.getItemName());
@@ -35,17 +35,45 @@ public class MenuItemDao {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     menuItem.setItemId(generatedKeys.getInt(1));
+                    logger.info("MENU ITEM "+ menuItem.getItemName() + " SAVED");
                 } else {
                     logger.error("Creating user failed, no ID obtained.");
                 }
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
 
         }
     }
 
-    public void update(MenuItemDao menuItemDao){}
+    public void update(MenuItemDao menuItemDao) {
+    }
 
-    public void delete(MenuItemDao menuItemDao){}
+    public void delete(MenuItemDao menuItemDao) {
+    }
+
+    public double getPrice(int itemId) throws SQLException {
+        double price = -1; // Default value if item not found or price is negative
+
+        String sql = "SELECT price FROM menu_items WHERE item_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Set the item ID parameter in the prepared statement
+            statement.setInt(1, itemId);
+
+            // Execute the query
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Check if result set has any rows
+                if (resultSet.next()) {
+                    // Retrieve the price from the result set
+                    price = resultSet.getDouble("price");
+                } else {
+                    logger.error("Item with ID " + itemId + " not found.");
+                }
+                return price;
+            } catch (SQLException e) {
+                logger.error("getPrice threw exception: " + e.getMessage());
+                return price;
+            }
+        }
+    }
 }

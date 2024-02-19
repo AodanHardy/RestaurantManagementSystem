@@ -5,6 +5,7 @@ package org.example.Orders;
  */
 public class OrderItem {
     private int orderItemId;
+    private int orderId;
     private int itemId;
     private int quantity;
     private String specialRequests;
@@ -24,6 +25,14 @@ public class OrderItem {
 
     public void setOrderItemId(int orderItemId) {
         this.orderItemId = orderItemId;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getItemId() {
