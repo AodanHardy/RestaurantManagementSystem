@@ -9,7 +9,7 @@ import java.util.List;
 public class Order {
     private int orderId;
     private int tableNumber;
-    private int staffId;
+    private int userId;
     private String time;
     private Double total;
     private boolean isPaid;
@@ -20,14 +20,16 @@ public class Order {
      * Instantiates a new Order.
      *
      * @param tableNumber the table number
-     * @param staffId     the staff id
+     * @param userId     the staff id
      */
-    public Order(int tableNumber, int staffId) {
+    public Order(int tableNumber, int userId) {
         this.tableNumber = tableNumber;
-        this.staffId = staffId;
-        isCanceled = false;
-        isPaid = false;
-        orderItems = new ArrayList<>();
+        this.userId = userId;
+        this.isCanceled = false;
+        this.isPaid = false;
+        this.orderItems = new ArrayList<>();
+        this.total = 0.0;
+
     }
 
     /**
@@ -71,17 +73,17 @@ public class Order {
      *
      * @return the staff id
      */
-    public int getStaffId() {
-        return staffId;
+    public int getUserId() {
+        return userId;
     }
 
     /**
      * Sets staff id.
      *
-     * @param staffId the staff id
+     * @param userId the staff id
      */
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     /**

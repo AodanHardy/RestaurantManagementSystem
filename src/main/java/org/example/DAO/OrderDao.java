@@ -1,9 +1,13 @@
 package org.example.DAO;
 
+import org.example.Constants.TableNames;
+import org.example.Logging.Logger;
 import org.example.Orders.Order;
 import org.example.Orders.OrderItem;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,17 +22,36 @@ import java.util.List;
  * list of order items in the order object.
 */
 public class OrderDao {
+    Logger logger = new Logger(OrderDao.class);
     Connection connection;
 
     public OrderDao(Connection connection) {
         this.connection = connection;
     }
 
-    public boolean save(Order order){
+    public boolean save(Order order) {
+        String sql = "INSERT INTO " + TableNames.ORDERS + " (table_number, user_id, total, is_paid, is_canceled) " +
+                "VALUES (?, ?,?, ?, ?)";
 
+        try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, order.getTableNumber());
+            statement.setInt(2, order.getUserId());
+            statement.setDouble(3, order.getTotal());
+            statement.setBoolean(4, order.getPaid());
+            statement.setBoolean(5, order.isCanceled());
 
-        return  false;
+            int affectedRows = statement.executeUpdate();
+
+            logger.error("ORDER SAVED: ");
+            return true;
+        } catch (SQLException e) {
+            logger.error("ORDER FAILED TO SAVE: " + e.getMessage());
+            return false;
+        }
     }
+
+
+
 
     public void update(Order order){}
 
