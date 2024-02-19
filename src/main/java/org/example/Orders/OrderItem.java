@@ -9,6 +9,7 @@ public class OrderItem {
     private int itemId;
     private int quantity;
     private String specialRequests;
+    private Double itemPrice;
     private Double subtotal;
 
     public OrderItem() {
@@ -17,6 +18,11 @@ public class OrderItem {
     public OrderItem(int itemId, int quantity) {
         this.itemId = itemId;
         this.quantity = quantity;
+    }
+    public OrderItem(int itemId, int quantity, Double price) {
+        this.itemId = itemId;
+        this.quantity = quantity;
+        this.itemPrice = price;
     }
 
     public int getOrderItemId() {
@@ -57,6 +63,14 @@ public class OrderItem {
 
     public void setSpecialRequests(String specialRequests) {
         this.specialRequests = specialRequests;
+    }
+
+    public Double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(Double itemPrice) {
+        this.itemPrice = itemPrice;
     }
 
     public Double getSubtotal() {

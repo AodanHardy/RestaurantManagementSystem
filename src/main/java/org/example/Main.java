@@ -40,28 +40,37 @@ public class Main {
         /**
          * Testing
          */
+        TableDao tableDao = new TableDao(connection);
+        UserDao userDao = new UserDao(connection);
+        OrderDao orderDao = new OrderDao(connection);
+        MenuItemDao menuItemDao = new MenuItemDao(connection);
+
+
 //
 //        Table table = new Table(1, 3);
-//        TableDao tableDao = new TableDao(connection);
-//        tableDao.save(table);
 //
-//        UserDao userDao = new UserDao(connection);
+//        tableDao.save(table);
+
 //        User user = new User("aodan", StaffType.MANAGER);
 //        user.setPassword("test");
 //        userDao.save(user);
-//
 
-//
+        int itemId = 1;
 
         Order order = new Order(1, 1);
 
-        order.addToOrderItems(new OrderItem(1, 3));
 
-        order.addToOrderItems(new OrderItem(2, 2));
+        OrderItem orderItem = new OrderItem(itemId, 1, menuItemDao.getPrice(itemId));
 
-        OrderDao orderDao = new OrderDao(connection);
+        order.addToOrderItems(orderItem);
 
         orderDao.save(order);
+
+
+
+
+
+
 
 
 

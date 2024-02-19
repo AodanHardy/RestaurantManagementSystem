@@ -67,11 +67,20 @@ public class OrderDao {
 
 
             for (OrderItem orderItem : order.getOrderItems())
-                try (PreparedStatement itemStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
-                    itemStatement.setInt(1, orderItem.getOrderId());
+                try (PreparedStatement itemStatement = connection.prepareStatement(itemSql, PreparedStatement.RETURN_GENERATED_KEYS)){
+                    itemStatement.setInt(1, order.getOrderId());
                     itemStatement.setInt(2, orderItem.getItemId());
                     itemStatement.setString(3, orderItem.getSpecialRequests());
                     itemStatement.setInt(4, orderItem.getQuantity());
+                    itemStatement.setDouble(5, orderItem.getItemPrice() * orderItem.getQuantity());
+
+                    int affectedItemRows = itemStatement.executeUpdate();
+
+
+                    if (affectedItemRows == 0) {
+                        logger.error("ORDER ITEM NOT SAVED: ");
+                        return false;
+                    }
                 }
 
 

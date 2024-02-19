@@ -163,6 +163,10 @@ public class Order {
      */
     public void addToOrderItems(OrderItem orderItem){
 
+        if (orderItem.getItemPrice() != null){
+            this.total += orderItem.getItemPrice();
+        }
+
         this.orderItems.add(orderItem);
     }
 }
