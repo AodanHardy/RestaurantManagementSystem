@@ -24,11 +24,19 @@ public class OrderDao {
         this.connection = connection;
     }
 
-    public void save(Order order){
+    public boolean save(Order order){
 
+
+        return  false;
     }
 
     public void update(Order order){}
+
+    public void pay(){}
+    public void partPay(){}
+    public void deleteOrderItem(){}
+    public void deleteOrder(){}
+
 
     public void delete(){}
 

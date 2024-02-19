@@ -12,7 +12,8 @@ public class Order {
     private int staffId;
     private String time;
     private Double total;
-    private Boolean isPaid;
+    private boolean isPaid;
+    private boolean isCanceled;
     private List<OrderItem> orderItems;
 
     /**
@@ -24,6 +25,8 @@ public class Order {
     public Order(int tableNumber, int staffId) {
         this.tableNumber = tableNumber;
         this.staffId = staffId;
+        isCanceled = false;
+        isPaid = false;
         orderItems = new ArrayList<>();
     }
 
@@ -133,6 +136,14 @@ public class Order {
      */
     public void setPaid(Boolean paid) {
         isPaid = paid;
+    }
+
+    public boolean isCanceled() {
+        return isCanceled;
+    }
+
+    public void setCanceled(boolean canceled) {
+        isCanceled = canceled;
     }
 
     public List<OrderItem> getOrderItems() {

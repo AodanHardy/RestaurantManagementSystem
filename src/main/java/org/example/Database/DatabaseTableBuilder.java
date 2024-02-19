@@ -69,6 +69,7 @@ public class DatabaseTableBuilder {
             createOrdersTableSQL.append("time TIMESTAMP NOT NULL,");
             createOrdersTableSQL.append("total DOUBLE PRECISION NOT NULL,");
             createOrdersTableSQL.append("is_paid BOOLEAN NOT NULL,");
+            createOrdersTableSQL.append("is_canceled BOOLEAN NOT NULL,");
             createOrdersTableSQL.append("FOREIGN KEY (table_number) REFERENCES "+TableNames.TABLES+"(table_number),");
             createOrdersTableSQL.append("FOREIGN KEY (user_id) REFERENCES "+TableNames.USERS+"(user_id)");
             createOrdersTableSQL.append(")");

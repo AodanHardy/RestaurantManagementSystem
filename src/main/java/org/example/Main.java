@@ -6,6 +6,7 @@ import org.example.Classes.Table;
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
 import org.example.DAO.MenuItemDao;
+import org.example.DAO.OrderDao;
 import org.example.DAO.ReservationDao;
 import org.example.DAO.TableDao;
 import org.example.Database.DatabaseConnection;
@@ -46,6 +47,10 @@ public class Main {
         order.addToOrderItems(new OrderItem(1, 3));
 
         order.addToOrderItems(new OrderItem(2, 2));
+
+        OrderDao orderDao = new OrderDao(connection);
+
+        orderDao.save(order);
 
 
 
