@@ -11,6 +11,8 @@ import org.example.DAO.TableDao;
 import org.example.Database.DatabaseConnection;
 import org.example.Database.DatabaseTableBuilder;
 import org.example.Logging.Logger;
+import org.example.Orders.Order;
+import org.example.Orders.OrderItem;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -38,6 +40,14 @@ public class Main {
         /**
          * Testing
          */
+
+        Order order = new Order(1, 1);
+
+        order.addToOrderItems(new OrderItem(1, 3));
+
+        order.addToOrderItems(new OrderItem(2, 2));
+
+
 
 
 

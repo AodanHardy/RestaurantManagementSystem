@@ -141,7 +141,13 @@ public class Order {
         this.orderItems = orderItems;
     }
 
+    /**
+     * we need to do a check to ensure that the item requested exists before adding
+     * we also need to check if the item already exists in the list, if so just add the
+     * two quantities together
+     */
     public void addToOrderItems(OrderItem orderItem){
+
         this.orderItems.add(orderItem);
     }
 }
