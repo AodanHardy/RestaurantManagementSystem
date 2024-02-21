@@ -5,12 +5,14 @@ import org.example.Classes.Reservation;
 import org.example.Classes.Table;
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
-import org.example.DAO.MenuItemDao;
-import org.example.DAO.ReservationDao;
-import org.example.DAO.TableDao;
+import org.example.DAO.*;
 import org.example.Database.DatabaseConnection;
 import org.example.Database.DatabaseTableBuilder;
 import org.example.Logging.Logger;
+import org.example.Orders.Order;
+import org.example.Orders.OrderItem;
+import org.example.Users.StaffType;
+import org.example.Users.User;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -38,7 +40,10 @@ public class Main {
         /**
          * Testing
          */
-
+        TableDao tableDao = new TableDao(connection);
+        UserDao userDao = new UserDao(connection);
+        OrderDao orderDao = new OrderDao(connection);
+        MenuItemDao menuItemDao = new MenuItemDao(connection);
 
 
         /**

@@ -1,6 +1,8 @@
-package org.example.Classes;
+package org.example.Orders;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Order.
@@ -8,20 +10,27 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 public class Order {
     private int orderId;
     private int tableNumber;
-    private int staffId;
+    private int userId;
     private String time;
     private Double total;
-    private Boolean isPaid;
+    private boolean isPaid;
+    private boolean isCanceled;
+    private List<OrderItem> orderItems;
 
     /**
      * Instantiates a new Order.
      *
      * @param tableNumber the table number
-     * @param staffId     the staff id
+     * @param userId      the staff id
      */
-    public Order(int tableNumber, int staffId) {
+    public Order(int tableNumber, int userId) {
         this.tableNumber = tableNumber;
-        this.staffId = staffId;
+        this.userId = userId;
+        this.isCanceled = false;
+        this.isPaid = false;
+        this.orderItems = new ArrayList<>();
+        this.total = 0.0;
+
     }
 
     /**
@@ -65,17 +74,17 @@ public class Order {
      *
      * @return the staff id
      */
-    public int getStaffId() {
-        return staffId;
+    public int getUserId() {
+        return userId;
     }
 
     /**
      * Sets staff id.
      *
-     * @param staffId the staff id
+     * @param userId the staff id
      */
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     /**
@@ -130,5 +139,57 @@ public class Order {
      */
     public void setPaid(Boolean paid) {
         isPaid = paid;
+    }
+
+    /**
+     * Is canceled boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isCanceled() {
+        return isCanceled;
+    }
+
+    /**
+     * Sets canceled.
+     *
+     * @param canceled the canceled
+     */
+    public void setCanceled(boolean canceled) {
+        isCanceled = canceled;
+    }
+
+    /**
+     * Gets order items.
+     *
+     * @return the order items
+     */
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    /**
+     * Sets order items.
+     *
+     * @param orderItems the order items
+     */
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    /**
+     * we need to do a check to ensure that the item requested exists before adding
+     * we also need to check if the item already exists in the list, if so just add the
+     * two quantities together
+     *
+     * @param orderItem the order item
+     */
+    public void addToOrderItems(OrderItem orderItem){
+
+        if (orderItem.getItemPrice() != null){
+            this.total += orderItem.getItemPrice();
+        }
+
+        this.orderItems.add(orderItem);
     }
 }
