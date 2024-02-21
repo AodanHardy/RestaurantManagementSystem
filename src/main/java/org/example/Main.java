@@ -46,25 +46,13 @@ public class Main {
         MenuItemDao menuItemDao = new MenuItemDao(connection);
 
 
-//
-//        Table table = new Table(1, 3);
-//
-//        tableDao.save(table);
+       Order order = new Order(1, 1);
 
-//        User user = new User("aodan", StaffType.MANAGER);
-//        user.setPassword("test");
-//        userDao.save(user);
+       order.addToOrderItems(new OrderItem(1, 1, menuItemDao.getPrice(1)));
+       order.addToOrderItems(new OrderItem(2, 3, menuItemDao.getPrice(2)));
+       order.addToOrderItems(new OrderItem(3, 1, menuItemDao.getPrice(3)));
 
-        int itemId = 1;
-
-        Order order = new Order(1, 1);
-
-
-        OrderItem orderItem = new OrderItem(itemId, 1, menuItemDao.getPrice(itemId));
-
-        order.addToOrderItems(orderItem);
-
-        orderDao.save(order);
+       orderDao.save(order);
 
 
 
