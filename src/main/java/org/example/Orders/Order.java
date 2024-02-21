@@ -21,7 +21,7 @@ public class Order {
      * Instantiates a new Order.
      *
      * @param tableNumber the table number
-     * @param userId     the staff id
+     * @param userId      the staff id
      */
     public Order(int tableNumber, int userId) {
         this.tableNumber = tableNumber;
@@ -141,18 +141,38 @@ public class Order {
         isPaid = paid;
     }
 
+    /**
+     * Is canceled boolean.
+     *
+     * @return the boolean
+     */
     public boolean isCanceled() {
         return isCanceled;
     }
 
+    /**
+     * Sets canceled.
+     *
+     * @param canceled the canceled
+     */
     public void setCanceled(boolean canceled) {
         isCanceled = canceled;
     }
 
+    /**
+     * Gets order items.
+     *
+     * @return the order items
+     */
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
+    /**
+     * Sets order items.
+     *
+     * @param orderItems the order items
+     */
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
@@ -161,6 +181,8 @@ public class Order {
      * we need to do a check to ensure that the item requested exists before adding
      * we also need to check if the item already exists in the list, if so just add the
      * two quantities together
+     *
+     * @param orderItem the order item
      */
     public void addToOrderItems(OrderItem orderItem){
 

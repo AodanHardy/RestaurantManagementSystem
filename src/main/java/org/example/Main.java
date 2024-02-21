@@ -46,24 +46,6 @@ public class Main {
         MenuItemDao menuItemDao = new MenuItemDao(connection);
 
 
-       Order order = new Order(1, 1);
-
-       order.addToOrderItems(new OrderItem(1, 1, menuItemDao.getPrice(1)));
-       order.addToOrderItems(new OrderItem(2, 3, menuItemDao.getPrice(2)));
-       order.addToOrderItems(new OrderItem(3, 1, menuItemDao.getPrice(3)));
-
-       orderDao.save(order);
-
-
-
-
-
-
-
-
-
-
-
         /**
          * Testing
          */
