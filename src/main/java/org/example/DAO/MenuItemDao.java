@@ -1,6 +1,7 @@
 package org.example.DAO;
 
 import org.example.Classes.MenuItem;
+import static org.example.Constants.ColumnNames.MenuItems.*;
 import org.example.Constants.TableNames;
 import org.example.Logging.Logger;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class MenuItemDao {
     Logger logger = new Logger(MenuItemDao.class);
@@ -18,7 +20,9 @@ public class MenuItemDao {
     }
 
     public void save(MenuItem menuItem) {
-        String sql = "INSERT INTO " + TableNames.MENU_ITEMS + " (item_name, description, price) VALUES (?, ?, ?)";
+        String sql = String.format("INSERT INTO " + TableNames.MENU_ITEMS +
+                " (%s, %s, %s) VALUES (?, ?, ?)", ITEM_NAME, DESCRIPTION, PRICE);
+
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, menuItem.getItemName());
             statement.setString(2, menuItem.getDescription());

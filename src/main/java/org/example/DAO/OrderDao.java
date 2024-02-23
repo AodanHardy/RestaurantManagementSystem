@@ -1,9 +1,13 @@
 package org.example.DAO;
 
+import org.example.Constants.ColumnNames;
 import org.example.Constants.TableNames;
 import org.example.Logging.Logger;
 import org.example.Orders.Order;
 import org.example.Orders.OrderItem;
+
+import static org.example.Constants.ColumnNames.Orders.*;
+import static org.example.Constants.ColumnNames.OrderItems.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,8 +35,10 @@ public class OrderDao {
     }
 
     public boolean save(Order order) {
-        String sql = "INSERT INTO " + TableNames.ORDERS + " (table_number, user_id, total, is_paid, is_canceled) " +
-                "VALUES (?, ?,?, ?, ?)";
+        String sql = String.format("INSERT INTO " + TableNames.ORDERS +
+                " (%s, %s, %s, %s, %s) VALUES (?, ?,?, ?, ?)",
+                TABLE_NUMBER, USER_ID, TOTAL, IS_PAID, IS_CANCELED
+        );
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, order.getTableNumber());
@@ -62,8 +68,10 @@ public class OrderDao {
 
             // from here I need to save the order items, then update the total
 
-            String itemSql = "INSERT INTO " + TableNames.ORDER_ITEMS + " (order_id, item_id," +
-                    " special_instructions, quantity, subtotal) VALUES (?, ?, ?, ?, ?)";
+            String itemSql = String.format("INSERT INTO " + TableNames.ORDER_ITEMS +
+                    " (order_id, item_id, special_instructions, quantity, subtotal) VALUES (?, ?, ?, ?, ?)",
+                    ColumnNames.OrderItems.ORDER_ID, ITEM_ID, SPECIAL_INSTRUCTIONS, QUANTITY, SUBTOTAL
+            );
 
 
             for (OrderItem orderItem : order.getOrderItems())

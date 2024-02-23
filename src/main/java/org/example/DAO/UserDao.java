@@ -1,6 +1,7 @@
 package org.example.DAO;
 
 import org.example.Constants.TableNames;
+import static org.example.Constants.ColumnNames.Users.*;
 import org.example.Logging.Logger;
 import org.example.Users.StaffType;
 import org.example.Users.User;
@@ -21,7 +22,9 @@ public class UserDao {
 
     // Method to save a user to the database
     public void save(User user) {
-        String sql = "INSERT INTO "+ TableNames.USERS +" (username, password, staff_type) VALUES (?, ?, ?)";
+        String sql = String.format("INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)",
+                TableNames.USERS, USERNAME, PASSWORD, STAFF_TYPE
+        );
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
@@ -37,6 +40,7 @@ public class UserDao {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     user.setUserId(generatedKeys.getInt(1));
+                    logger.info(String.format("USER ID: %s, USERNAME: %s CREATED", user.getUserId(), user.getUsername()));
                 } else {
                     logger.error("Creating user failed, no ID obtained.");
                 }
@@ -52,7 +56,9 @@ public class UserDao {
 
     // Method to retrieve a user by username
     public User get(String username) {
-        String sql = "SELECT * FROM public."+TableNames.USERS+" WHERE username = ?";
+        String sql = String.format("SELECT * FROM public.%s WHERE %s = ?",
+                TableNames.USERS, USERNAME
+                );
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
@@ -60,10 +66,10 @@ public class UserDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     User user = new User();
-                    user.setUserId(resultSet.getInt("user_id"));
-                    user.setUsername(resultSet.getString("username"));
-                    user.setPassword(resultSet.getString("password"));
-                    user.setRole(StaffType.valueOf(resultSet.getString("staff_type")));
+                    user.setUserId(resultSet.getInt(USER_ID));
+                    user.setUsername(resultSet.getString(USERNAME));
+                    user.setPassword(resultSet.getString(PASSWORD));
+                    user.setRole(StaffType.valueOf(resultSet.getString(STAFF_TYPE)));
                     return user;
                 }
             }

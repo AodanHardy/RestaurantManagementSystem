@@ -1,8 +1,8 @@
 package org.example.Classes;
 
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 /**
  * The type Reservation.
@@ -12,7 +12,7 @@ public class Reservation {
 
     private int tableNumber;
 
-    private Date date;
+    private LocalDate date;
 
     private Time startTime;
 
@@ -26,7 +26,7 @@ public class Reservation {
      * @param startTime   the start time
      * @param endTime     the end time
      */
-    public Reservation(int tableNumber, Date date, Time startTime, Time endTime) {
+    public Reservation(int tableNumber, LocalDate date, Time startTime, Time endTime) {
         this.tableNumber = tableNumber;
         this.date = date;
         this.startTime = startTime;
@@ -74,7 +74,7 @@ public class Reservation {
      *
      * @return the date
      */
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -83,7 +83,7 @@ public class Reservation {
      *
      * @param date the date
      */
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
