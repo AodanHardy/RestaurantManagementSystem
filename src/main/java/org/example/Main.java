@@ -1,25 +1,16 @@
 package org.example;
 
-import org.example.Classes.MenuItem;
-import org.example.Classes.Reservation;
-import org.example.Classes.Table;
+
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
 import org.example.DAO.*;
 import org.example.Database.DatabaseConnection;
 import org.example.Database.DatabaseTableBuilder;
 import org.example.Logging.Logger;
-import org.example.Orders.Order;
-import org.example.Orders.OrderItem;
-import org.example.Users.StaffType;
-import org.example.Users.User;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -48,9 +39,10 @@ public class Main {
         MenuItemDao menuItemDao = new MenuItemDao(connection);
         ReservationDao reservationDao = new ReservationDao(connection);
 
-        Table table = new Table(1, 6);
 
-        tableDao.update(table);
+
+
+
 
 
 

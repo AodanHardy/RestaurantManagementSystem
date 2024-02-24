@@ -17,6 +17,12 @@ public class User {
     public User() {
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param username the username
+     * @param role     the role
+     */
     public User(String username, StaffType role) {
         this.username = username;
         this.role = role;
@@ -74,6 +80,16 @@ public class User {
      */
     public void setPassword(String password) {
         this.hashedPassword = hashPassword(password);
+    }
+
+
+    /**
+     * Sets already hashed password.
+     *
+     * @param password the password
+     */
+    public void setHashedPassword(String password) {
+        this.hashedPassword = password;
     }
 
     /**

@@ -50,8 +50,26 @@ public class UserDao {
         }
     }
 
-    public void update(User user){
+    public void updatePassword(String newPassword, User user) throws SQLException {
+        user.setPassword(newPassword);
 
+        String sql = String.format(
+                "UPDATE %s " +
+                        "SET %s = ? " +
+                        "WHERE %s = ? ",
+                TableNames.USERS, PASSWORD, USERNAME
+                );
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, user.getHashedPassword());
+            statement.setString(2, user.getUsername());
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0) {
+                logger.error("USER NOT UPDATED");
+            }else logger.info("USER UPDATED");
+
+        }
     }
 
     public void delete(User user){}
@@ -70,7 +88,7 @@ public class UserDao {
                     User user = new User();
                     user.setUserId(resultSet.getInt(USER_ID));
                     user.setUsername(resultSet.getString(USERNAME));
-                    user.setPassword(resultSet.getString(PASSWORD));
+                    user.setHashedPassword(resultSet.getString(PASSWORD));
                     user.setRole(StaffType.valueOf(resultSet.getString(STAFF_TYPE)));
                     return user;
                 }
