@@ -12,6 +12,8 @@ public class Reservation {
 
     private int tableNumber;
 
+    private String reservationName;
+
     private LocalDate date;
 
     private Time startTime;
@@ -22,12 +24,14 @@ public class Reservation {
      * Instantiates a new Reservation.
      *
      * @param tableNumber the table number
+     * @param name        the name
      * @param date        the date
      * @param startTime   the start time
      * @param endTime     the end time
      */
-    public Reservation(int tableNumber, LocalDate date, Time startTime, Time endTime) {
+    public Reservation(int tableNumber, String name, LocalDate date, Time startTime, Time endTime) {
         this.tableNumber = tableNumber;
+        this.reservationName = name;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -66,6 +70,24 @@ public class Reservation {
      */
     public void setReservationId(int reservationId) {
         this.reservationId = reservationId;
+    }
+
+    /**
+     * Gets reservation name.
+     *
+     * @return the reservation name
+     */
+    public String getReservationName() {
+        return reservationName;
+    }
+
+    /**
+     * Sets reservation name.
+     *
+     * @param reservationName the reservation name
+     */
+    public void setReservationName(String reservationName) {
+        this.reservationName = reservationName;
     }
 
     /**

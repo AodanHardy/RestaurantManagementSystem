@@ -34,6 +34,8 @@ public class ColumnNames {
     public static class Reservations {
         public static final String RESERVATION_ID = "reservation_id";
         public static final String TABLE_NUMBER = Tables.TABLE_NUMBER;
+
+        public static final  String RESERVATION_NAME = "reservation_name";
         public static final String DATE = "date";
         public static final String START_TIME = "start_time";
         public static final String END_TIME = "end_time";

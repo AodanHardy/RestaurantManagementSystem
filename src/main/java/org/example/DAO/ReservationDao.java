@@ -21,17 +21,18 @@ public class ReservationDao {
     }
 
     public void save(Reservation reservation) {
-        String sql = String.format("INSERT INTO %s (%s, %s, %s, %s) VALUES (?, ?, ?, ?)"
-        , TableNames.RESERVATIONS, TABLE_NUMBER, DATE, START_TIME, END_TIME
+        String sql = String.format("INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)"
+        , TableNames.RESERVATIONS, TABLE_NUMBER, RESERVATION_NAME, DATE, START_TIME, END_TIME
         );
 
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             // Set values for placeholders
             statement.setInt(1, reservation.getTableNumber());
-            statement.setDate(2, new java.sql.Date(java.sql.Date.valueOf(reservation.getDate()).getTime()));
-            statement.setTime(3, new java.sql.Time(reservation.getStartTime().getTime()));
-            statement.setTime(4, new java.sql.Time(reservation.getEndTime().getTime()));
+            statement.setString(2, reservation.getReservationName());
+            statement.setDate(3, new java.sql.Date(java.sql.Date.valueOf(reservation.getDate()).getTime()));
+            statement.setTime(4, new java.sql.Time(reservation.getStartTime().getTime()));
+            statement.setTime(5, new java.sql.Time(reservation.getEndTime().getTime()));
 
 
             int affectedRows = statement.executeUpdate();
@@ -63,14 +64,15 @@ public class ReservationDao {
                         "%s = ?, " +
                         "%s = ?  " +
                         "WHERE %s = ? ",
-                TableNames.RESERVATIONS, TABLE_NUMBER, DATE, START_TIME, END_TIME, RESERVATION_ID);
+                TableNames.RESERVATIONS, TABLE_NUMBER, RESERVATION_NAME, DATE, START_TIME, END_TIME, RESERVATION_ID);
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, reservation.getTableNumber());
-            statement.setObject(2, new java.sql.Date(java.sql.Date.valueOf(reservation.getDate()).getTime()));
-            statement.setTime(3, new java.sql.Time(reservation.getStartTime().getTime()));
-            statement.setTime(4, new java.sql.Time(reservation.getEndTime().getTime()));
-            statement.setInt(5, reservation.getReservationId());
+            statement.setString(2, reservation.getReservationName());
+            statement.setObject(3, new java.sql.Date(java.sql.Date.valueOf(reservation.getDate()).getTime()));
+            statement.setTime(4, new java.sql.Time(reservation.getStartTime().getTime()));
+            statement.setTime(5, new java.sql.Time(reservation.getEndTime().getTime()));
+            statement.setInt(6, reservation.getReservationId());
 
             int affectedRows = statement.executeUpdate();
 

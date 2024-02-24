@@ -1,6 +1,7 @@
 package org.example;
 
-
+import org.example.Classes.MenuItem;
+import org.example.Classes.Reservation;
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
 import org.example.DAO.*;
@@ -38,9 +39,6 @@ public class Main {
         OrderDao orderDao = new OrderDao(connection);
         MenuItemDao menuItemDao = new MenuItemDao(connection);
         ReservationDao reservationDao = new ReservationDao(connection);
-
-
-
 
 
 

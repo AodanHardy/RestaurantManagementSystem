@@ -43,6 +43,7 @@ public class DatabaseTableBuilder {
             StringBuilder createReservationTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS "+TableNames.RESERVATIONS+" (");
             createReservationTableSQL.append(Reservations.RESERVATION_ID + " SERIAL PRIMARY KEY,");
             createReservationTableSQL.append(Reservations.TABLE_NUMBER + " INT NOT NULL,");
+            createReservationTableSQL.append(Reservations.RESERVATION_NAME + " VARCHAR(255) NOT NULL,");
             createReservationTableSQL.append(Reservations.DATE + " DATE NOT NULL,");
             createReservationTableSQL.append(Reservations.START_TIME + " TIME NOT NULL,");
             createReservationTableSQL.append(Reservations.END_TIME + " TIME NOT NULL,");
