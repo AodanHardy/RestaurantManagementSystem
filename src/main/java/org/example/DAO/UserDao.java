@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class UserDao {
     Logger logger = new Logger(UserDao.class);
-    private Connection connection;
+    private final Connection connection;
 
     // Constructor to receive a database connection
     public UserDao(Connection connection) {
@@ -74,7 +74,7 @@ public class UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.error("GET THREW EXCEPTION: " + e.getMessage());
         }
 
         return null; // Return null if the user with the specified username is not found
