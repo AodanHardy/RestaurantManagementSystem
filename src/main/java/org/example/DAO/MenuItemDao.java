@@ -2,6 +2,7 @@ package org.example.DAO;
 
 import org.example.Classes.MenuItem;
 import static org.example.Constants.ColumnNames.MenuItems.*;
+
 import org.example.Constants.TableNames;
 import org.example.Logging.Logger;
 
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 
 public class MenuItemDao {
     Logger logger = new Logger(MenuItemDao.class);
-    private Connection connection;
+    private final Connection connection;
 
     public MenuItemDao(Connection connection) {
         this.connection = connection;
@@ -46,11 +47,35 @@ public class MenuItemDao {
             }
 
         } catch (SQLException e) {
-
+            logger.error("SAVE THREW EXCEPTION: " + e.getMessage());
         }
     }
 
-    public void update(MenuItemDao menuItemDao) {
+    public void update(MenuItem menuItem) {
+        String sql = String.format(
+                "UPDATE %s " +
+                "SET %s = ?, " +
+                "%s = ?, " +
+                "%s = ? " +
+                "WHERE %s = ? ",
+                TableNames.MENU_ITEMS, ITEM_NAME, DESCRIPTION, PRICE, ITEM_ID);
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, menuItem.getItemName());
+            statement.setString(2, menuItem.getDescription());
+            statement.setDouble(3, menuItem.getPrice());
+            statement.setInt(4, menuItem.getItemId());
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows > 0) logger.info(String.format("MENU ITEM ID : %s UPDATED", menuItem.getItemId()));
+            else logger.error(String.format("MENU ITEM ID : %s NOT UPDATED", menuItem.getItemId()));
+
+        } catch (Exception e){
+            logger.error("UPDATE THREW EXCEPTION: " + e.getMessage());
+        }
+
+
     }
 
     public void delete(MenuItemDao menuItemDao) {
@@ -59,7 +84,8 @@ public class MenuItemDao {
     public double getPrice(int itemId) throws SQLException {
         double price = -1; // Default value if item not found or price is negative
 
-        String sql = "SELECT price FROM menu_items WHERE item_id = ?";
+        String sql = String.format("SELECT %s FROM %s WHERE item_id = ?", PRICE, TableNames.MENU_ITEMS);
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             // Set the item ID parameter in the prepared statement
             statement.setInt(1, itemId);

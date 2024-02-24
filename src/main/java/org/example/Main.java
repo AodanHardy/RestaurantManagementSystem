@@ -19,6 +19,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -47,6 +48,9 @@ public class Main {
         MenuItemDao menuItemDao = new MenuItemDao(connection);
         ReservationDao reservationDao = new ReservationDao(connection);
 
+        Table table = new Table(1, 6);
+
+        tableDao.update(table);
 
 
 

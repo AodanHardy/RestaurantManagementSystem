@@ -34,6 +34,23 @@ public class Reservation {
     }
 
     /**
+     * Instantiates a new Reservation with an id.
+     *
+     * @param id          the id
+     * @param tableNumber the table number
+     * @param date        the date
+     * @param startTime   the start time
+     * @param endTime     the end time
+     */
+    public Reservation(int id, int tableNumber, LocalDate date, Time startTime, Time endTime) {
+        this.reservationId = id;
+        this.tableNumber = tableNumber;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
      * Gets reservation id.
      *
      * @return the reservation id
