@@ -35,9 +35,8 @@ public class OrderDao {
     }
 
     public boolean save(Order order) {
-        String sql = String.format("INSERT INTO " + TableNames.ORDERS +
-                " (%s, %s, %s, %s, %s) VALUES (?, ?,?, ?, ?)",
-                TABLE_NUMBER, USER_ID, TOTAL, IS_PAID, IS_CANCELED
+        String sql = String.format("INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
+                TableNames.ORDERS, TABLE_NUMBER, USER_ID, TOTAL, IS_PAID, IS_CANCELED
         );
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -68,9 +67,8 @@ public class OrderDao {
 
             // from here I need to save the order items, then update the total
 
-            String itemSql = String.format("INSERT INTO " + TableNames.ORDER_ITEMS +
-                    " (order_id, item_id, special_instructions, quantity, subtotal) VALUES (?, ?, ?, ?, ?)",
-                    ColumnNames.OrderItems.ORDER_ID, ITEM_ID, SPECIAL_INSTRUCTIONS, QUANTITY, SUBTOTAL
+            String itemSql = String.format("INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
+                    TableNames.ORDER_ITEMS, ColumnNames.OrderItems.ORDER_ID, ITEM_ID, SPECIAL_INSTRUCTIONS, QUANTITY, SUBTOTAL
             );
 
 
@@ -109,10 +107,7 @@ public class OrderDao {
     public void deleteOrderItem(){}
     public void deleteOrder(){}
 
-
-    public void delete(){}
-
-    //public List<OrderItem> getOrderItems();
+    public void cancelItems(){}
 
 
 }
