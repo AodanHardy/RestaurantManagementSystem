@@ -82,8 +82,9 @@ public class MenuItemDao {
 
     }
 
-    public void delete(MenuItemDao menuItemDao) {
+    public void setActive(boolean newActive) {
     }
+
 
     public double getPrice(int itemId) throws SQLException {
         double price = -1; // Default value if item not found or price is negative
