@@ -22,12 +22,14 @@ public class MenuItemDao {
 
     public void save(MenuItem menuItem) {
         String sql = String.format("INSERT INTO " + TableNames.MENU_ITEMS +
-                " (%s, %s, %s) VALUES (?, ?, ?)", ITEM_NAME, DESCRIPTION, PRICE);
+                " (%s, %s, %s, %s) VALUES (?, ?, ?, ?)", ITEM_NAME, DESCRIPTION, PRICE, ACTIVE);
 
         try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, menuItem.getItemName());
             statement.setString(2, menuItem.getDescription());
             statement.setDouble(3, menuItem.getPrice());
+            statement.setBoolean(4, menuItem.isActive());
+
 
             int affectedRows = statement.executeUpdate();
 
@@ -57,14 +59,16 @@ public class MenuItemDao {
                 "SET %s = ?, " +
                 "%s = ?, " +
                 "%s = ? " +
+                "%s = ? " +
                 "WHERE %s = ? ",
-                TableNames.MENU_ITEMS, ITEM_NAME, DESCRIPTION, PRICE, ITEM_ID);
+                TableNames.MENU_ITEMS, ITEM_NAME, DESCRIPTION, PRICE, ACTIVE, ITEM_ID);
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, menuItem.getItemName());
             statement.setString(2, menuItem.getDescription());
             statement.setDouble(3, menuItem.getPrice());
-            statement.setInt(4, menuItem.getItemId());
+            statement.setBoolean(4, menuItem.isActive());
+            statement.setInt(5, menuItem.getItemId());
 
             int affectedRows = statement.executeUpdate();
 

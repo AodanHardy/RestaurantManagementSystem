@@ -58,7 +58,8 @@ public class DatabaseTableBuilder {
             createMenuItemsTableSQL.append(MenuItems.ITEM_ID + " SERIAL PRIMARY KEY,");
             createMenuItemsTableSQL.append(MenuItems.ITEM_NAME + " VARCHAR(255) NOT NULL,");
             createMenuItemsTableSQL.append(MenuItems.DESCRIPTION + " VARCHAR(225),");
-            createMenuItemsTableSQL.append(MenuItems.PRICE + " DOUBLE PRECISION NOT NULL");
+            createMenuItemsTableSQL.append(MenuItems.PRICE + " DOUBLE PRECISION NOT NULL,");
+            createMenuItemsTableSQL.append(MenuItems.ACTIVE + " BOOLEAN NOT NULL");
             createMenuItemsTableSQL.append(")");
 
             statement.executeUpdate(createMenuItemsTableSQL.toString());

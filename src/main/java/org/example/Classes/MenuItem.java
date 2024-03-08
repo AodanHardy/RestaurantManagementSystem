@@ -12,6 +12,8 @@ public class MenuItem {
 
     private Double price;
 
+    private boolean active;
+
     /**
      * Instantiates a new Menu item.
      *
@@ -107,4 +109,23 @@ public class MenuItem {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    /**
+     * Is active boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * Sets active.
+     *
+     * @param active the active
+     */
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 }

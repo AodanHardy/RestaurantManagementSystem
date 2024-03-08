@@ -1,12 +1,14 @@
 package org.example.Constants;
 
 public class ColumnNames {
+
     // Menu Items Table Columns
     public static class MenuItems {
         public static final String ITEM_ID = "item_id";
         public static final String ITEM_NAME = "item_name";
         public static final String DESCRIPTION = "description";
         public static final String PRICE = "price";
+        public static final String ACTIVE = "active";
     }
 
     // Order Items Table Columns
