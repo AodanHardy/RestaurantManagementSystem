@@ -12,12 +12,11 @@ public class ConfigMapper {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
-            Config config = mapper.readValue(new File("config.json"), Config.class);
 
-            return config;
+            return mapper.readValue(new File("config.json"), Config.class);
 
         } catch (Exception e) {
-            return null;
+            return new Config();
         }
     }
 }

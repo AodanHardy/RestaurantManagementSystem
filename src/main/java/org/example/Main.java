@@ -20,9 +20,6 @@ public class Main {
         // Load config
         Config config = ConfigMapper.getConfig();
 
-        if (config == null){
-            return;
-        }
         // set connection to db
         Connection connection = DatabaseConnection.getConnection(config.getDatabaseConfig());
 
