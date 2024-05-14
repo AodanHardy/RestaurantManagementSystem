@@ -34,7 +34,7 @@ public class UserDao {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                logger.info("USER NOT SAVED");
+                logger.error("USER NOT SAVED");
             }
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
