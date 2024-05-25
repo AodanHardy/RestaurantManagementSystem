@@ -103,7 +103,7 @@ public class MenuItemDao {
                     price = resultSet.getDouble("price");
                 } else {
                     logger.error("Item with ID " + itemId + " not found.");
-                }
+                } 
                 return price;
             } catch (SQLException e) {
                 logger.error("getPrice threw exception: " + e.getMessage());

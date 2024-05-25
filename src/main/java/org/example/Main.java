@@ -4,6 +4,8 @@ import org.example.Classes.MenuItem;
 import org.example.Classes.Reservation;
 import org.example.Config.Config;
 import org.example.Config.ConfigMapper;
+import org.example.Constants.ColumnNames;
+import org.example.Constants.TableNames;
 import org.example.DAO.*;
 import org.example.Database.DatabaseConnection;
 import org.example.Database.DatabaseTableBuilder;
@@ -36,8 +38,10 @@ public class Main {
         OrderDao orderDao = new OrderDao(connection);
         MenuItemDao menuItemDao = new MenuItemDao(connection);
         ReservationDao reservationDao = new ReservationDao(connection);
+        GeneralDao generalDao = new GeneralDao(connection);
 
 
+        generalDao.updateString(TableNames.MENU_ITEMS, ColumnNames.MenuItems.ITEM_NAME, ColumnNames.MenuItems.ITEM_ID, 1, "Burger");
 
         /**
          * Testing
