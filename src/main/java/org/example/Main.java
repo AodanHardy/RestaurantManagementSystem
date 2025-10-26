@@ -26,6 +26,7 @@ public class Main {
         Connection connection = DatabaseConnection.getConnection(config.getDatabaseConfig());
 
         // Running table builders to ensure database is built
+        // todo make this static - no need to create instance
         DatabaseTableBuilder tableBuilder = new DatabaseTableBuilder(connection);
         tableBuilder.createTables();
 
