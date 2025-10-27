@@ -22,45 +22,65 @@ public class OrderDao {
         this.connection = connection;
     }
 
-    // CREATE (Order + Items)
+    // CREATE
     public Order save(Order order) throws SQLException {
-        String sql = String.format(
+        String insertOrderSql = String.format(
                 "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
                 TableNames.ORDERS, TABLE_NUMBER, USER_ID, TOTAL, IS_PAID, IS_CANCELED
         );
 
-        try (PreparedStatement statement =
-                     connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        connection.setAutoCommit(false); // start transaction
+        try (PreparedStatement orderStmt = connection.prepareStatement(insertOrderSql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            statement.setInt(1, order.getTableNumber());
-            statement.setInt(2, order.getUserId());
-            statement.setDouble(3, order.getTotal());
-            statement.setBoolean(4, order.getPaid());
-            statement.setBoolean(5, order.isCanceled());
-            statement.executeUpdate();
+            orderStmt.setInt(1, order.getTableNumber());
+            orderStmt.setInt(2, order.getUserId());
+            orderStmt.setDouble(3, order.getTotal() != null ? order.getTotal() : 0.0);
+            orderStmt.setBoolean(4, order.getPaid() != null ? order.getPaid() : false);
+            orderStmt.setBoolean(5, order.isCanceled());
 
-            try (ResultSet keys = statement.getGeneratedKeys()) {
-                if (keys.next()) order.setOrderId(keys.getInt(1));
-            }
+            int affected = orderStmt.executeUpdate();
+            if (affected == 0)
+                throw new SQLException("Order not saved (0 rows affected)");
 
-            String itemSql = String.format(
-                    "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
-                    TableNames.ORDER_ITEMS, ORDER_ID, ITEM_ID, SPECIAL_INSTRUCTIONS, QUANTITY, SUBTOTAL
-            );
-
-            for (OrderItem item : order.getOrderItems()) {
-                try (PreparedStatement itemStmt = connection.prepareStatement(itemSql)) {
-                    itemStmt.setInt(1, order.getOrderId());
-                    itemStmt.setInt(2, item.getItemId());
-                    itemStmt.setString(3, item.getSpecialRequests());
-                    itemStmt.setInt(4, item.getQuantity());
-                    itemStmt.setDouble(5, item.getItemPrice() * item.getQuantity());
-                    itemStmt.executeUpdate();
+            try (ResultSet keys = orderStmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    order.setOrderId(keys.getInt(1));
+                } else {
+                    throw new SQLException("No order_id returned after insert");
                 }
             }
-            logger.info("ORDER SAVED id=" + order.getOrderId());
+
+            // Now insert order items
+            if (order.getOrderItems() != null && !order.getOrderItems().isEmpty()) {
+                String insertItemSql = String.format(
+                        "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
+                        TableNames.ORDER_ITEMS,
+                        ColumnNames.OrderItems.ORDER_ID, ITEM_ID, SPECIAL_INSTRUCTIONS, QUANTITY, SUBTOTAL
+                );
+
+                for (var item : order.getOrderItems()) {
+                    try (PreparedStatement itemStmt = connection.prepareStatement(insertItemSql)) {
+                        itemStmt.setInt(1, order.getOrderId());
+                        itemStmt.setInt(2, item.getItemId());
+                        itemStmt.setString(3, item.getSpecialRequests() != null ? item.getSpecialRequests() : "");
+                        itemStmt.setInt(4, item.getQuantity());
+                        double price = (item.getItemPrice() != null ? item.getItemPrice() : 0.0);
+                        itemStmt.setDouble(5, price * item.getQuantity());
+                        itemStmt.executeUpdate();
+                    }
+                }
+            }
+
+            connection.commit();
+            return order;
+
+        } catch (SQLException e) {
+            connection.rollback();
+            e.printStackTrace(); // log the real SQL issue
+            throw new SQLException("Failed to save order: " + e.getMessage(), e);
+        } finally {
+            connection.setAutoCommit(true);
         }
-        return getById(order.getOrderId());
     }
 
     // READ one
