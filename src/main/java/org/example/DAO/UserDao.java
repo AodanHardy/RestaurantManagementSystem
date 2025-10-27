@@ -6,97 +6,115 @@ import org.example.Logging.Logger;
 import org.example.Users.StaffType;
 import org.example.Users.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
-    Logger logger = new Logger(UserDao.class);
+    private final Logger logger = new Logger(UserDao.class);
     private final Connection connection;
 
-    // Constructor to receive a database connection
     public UserDao(Connection connection) {
         this.connection = connection;
     }
 
-    // Method to save a user to the database
-    public void save(User user) {
+    // CREATE
+    public User save(User user) throws SQLException {
         String sql = String.format("INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)",
                 TableNames.USERS, USERNAME, PASSWORD, STAFF_TYPE
         );
 
-        try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getHashedPassword());
-            statement.setString(3, user.getRole().toString());
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getHashedPassword());
+            ps.setString(3, user.getRole().toString());
 
-            int affectedRows = statement.executeUpdate();
+            int affected = ps.executeUpdate();
+            if (affected == 0) throw new SQLException("USER NOT SAVED");
 
-            if (affectedRows == 0) {
-                logger.error("USER NOT SAVED");
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) user.setUserId(keys.getInt(1));
+                else throw new SQLException("USER NOT SAVED, NO ID OBTAINED");
             }
+            logger.info(String.format("USER ID: %s, USERNAME: %s CREATED", user.getUserId(), user.getUsername()));
+        }
+        return getById(user.getUserId());
+    }
 
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    user.setUserId(generatedKeys.getInt(1));
-                    logger.info(String.format("USER ID: %s, USERNAME: %s CREATED", user.getUserId(), user.getUsername()));
-                } else {
-                    logger.error("Creating user failed, no ID obtained.");
-                }
+    // READ (by id)
+    public User getById(int id) throws SQLException {
+        String sql = String.format("SELECT * FROM %s WHERE %s = ?", TableNames.USERS, USER_ID);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return map(rs);
             }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Handle or log the exception as needed
+        }
+        return null;
+    }
+
+    // READ (by username)
+    public User get(String username) throws SQLException {
+        String sql = String.format("SELECT * FROM %s WHERE %s = ?", TableNames.USERS, USERNAME);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return map(rs);
+            }
+        }
+        return null;
+    }
+
+    // READ all
+    public List<User> getAll() throws SQLException {
+        List<User> out = new ArrayList<>();
+        String sql = String.format("SELECT * FROM %s ORDER BY %s", TableNames.USERS, USER_ID);
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) out.add(map(rs));
+        }
+        return out;
+    }
+
+    // UPDATE password (by id)
+    public void updatePassword(int userId, String newPasswordHashed) throws SQLException {
+        String sql = String.format("UPDATE %s SET %s = ? WHERE %s = ?", TableNames.USERS, PASSWORD, USER_ID);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, newPasswordHashed);
+            ps.setInt(2, userId);
+            int affected = ps.executeUpdate();
+            if (affected == 0) throw new SQLException("USER NOT UPDATED");
         }
     }
 
-    public void updatePassword(String newPassword, User user) throws SQLException {
-        user.setPassword(newPassword);
-
-        String sql = String.format(
-                "UPDATE %s " +
-                        "SET %s = ? " +
-                        "WHERE %s = ? ",
-                TableNames.USERS, PASSWORD, USERNAME
-                );
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, user.getHashedPassword());
-            statement.setString(2, user.getUsername());
-
-            int affectedRows = statement.executeUpdate();
-
-            if (affectedRows == 0) {
-                logger.error("USER NOT UPDATED");
-            }else logger.info("USER UPDATED");
-
+    // UPDATE role (by id)
+    public void updateRole(int userId, StaffType role) throws SQLException {
+        String sql = String.format("UPDATE %s SET %s = ? WHERE %s = ?", TableNames.USERS, STAFF_TYPE, USER_ID);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, role.toString());
+            ps.setInt(2, userId);
+            int affected = ps.executeUpdate();
+            if (affected == 0) throw new SQLException("USER NOT UPDATED");
         }
     }
 
-    public void delete(User user){}
-
-    // Method to retrieve a user by username
-    public User get(String username) {
-        String sql = String.format("SELECT * FROM public.%s WHERE %s = ?",
-                TableNames.USERS, USERNAME
-                );
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, username);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    User user = new User();
-                    user.setUserId(resultSet.getInt(USER_ID));
-                    user.setUsername(resultSet.getString(USERNAME));
-                    user.setHashedPassword(resultSet.getString(PASSWORD));
-                    user.setRole(StaffType.valueOf(resultSet.getString(STAFF_TYPE)));
-                    return user;
-                }
-            }
-        } catch (SQLException e) {
-            logger.error("GET THREW EXCEPTION: " + e.getMessage());
+    // DELETE (by id)
+    public void delete(int userId) throws SQLException {
+        String sql = String.format("DELETE FROM %s WHERE %s = ?", TableNames.USERS, USER_ID);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int affected = ps.executeUpdate();
+            if (affected == 0) throw new SQLException("USER NOT FOUND OR NOT DELETED");
+            logger.info("USER DELETED id=" + userId);
         }
+    }
 
-        return null; // Return null if the user with the specified username is not found
+    private User map(ResultSet rs) throws SQLException {
+        User u = new User();
+        u.setUserId(rs.getInt(USER_ID));
+        u.setUsername(rs.getString(USERNAME));
+        u.setHashedPassword(rs.getString(PASSWORD));
+        u.setRole(StaffType.valueOf(rs.getString(STAFF_TYPE)));
+        return u;
     }
 }

@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "9bbd328c-514c-4691-bb7a-b247ce6b5bc8",
+		"name": "Restaurant API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39595492"
+	},
+	"item": [
+		{
+			"name": "Tables",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/tables/1"
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/tables"
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"tableNumber\": 3, \"capacity\": 4 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/tables"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"capacity\": 6 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/tables/3"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/tables/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu Items",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/menu-items"
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/menu-items/1"
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"itemName\": \"Burger\", \"description\": \"Beef burger\", \"price\": 9.50, \"active\": true }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/menu-items"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":2,  \"itemName\": \"Burger\", \"description\": \"Beef burger\", \"price\": 5.50, \"active\": true }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/menu-items/2"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/menu-items/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RESERVATIONS",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/reservations"
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/reservations/1"
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"tableNumber\": 1, \"reservationName\": \"Bob\", \"date\": \"2025-11-11\",\n   \"startTime\": \"19:00:00\", \"endTime\": \"21:00:00\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/reservations"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"tableNumber\": 1, \"reservationName\": \"Bob\", \"date\": \"2025-11-11\",\n   \"startTime\": \"19:00:00\", \"endTime\": \"23:00:00\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/reservations/6"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/reservations/6"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORDERS",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/orders/1"
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tableNumber\": 1,\n    \"userId\": 1,\n    \"orderItems\": [\n        {\n            \"itemId\": 2,\n            \"quantity\": 1,\n            \"itemPrice\": 8.5,\n            \"specialRequests\": \"No onions\"\n        },\n        {\n            \"itemId\": 2,\n            \"quantity\": 2,\n            \"itemPrice\": 2.5\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"tableNumber\": 1, \"reservationName\": \"Bob\", \"date\": \"2025-11-11\",\n   \"startTime\": \"19:00:00\", \"endTime\": \"23:00:00\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/reservations/6"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/reservations/6"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/users"
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/users/1"
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"username\": \"amy\", \"password\": \"secret\", \"role\": \"MANAGER\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/users"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"tableNumber\": 1, \"reservationName\": \"Bob\", \"date\": \"2025-11-11\",\n   \"startTime\": \"19:00:00\", \"endTime\": \"23:00:00\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/users/6"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/users/6"
+					},
+					"response": []
+				},
+				{
+					"name": "STAFF TYPES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/users/staff-types"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -16,6 +16,12 @@ public class MenuItem {
 
     /**
      * Instantiates a new Menu item.
+     */
+    public MenuItem() {
+    }
+
+    /**
+     * Instantiates a new Menu item.
      *
      * @param itemName    the item name
      * @param description the description

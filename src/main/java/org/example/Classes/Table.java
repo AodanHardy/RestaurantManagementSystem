@@ -9,6 +9,12 @@ public class Table {
 
     /**
      * Instantiates a new Table.
+     */
+    public Table() {
+    }
+
+    /**
+     * Instantiates a new Table.
      *
      * @param tableNumber the table number
      * @param capacity    the capacity
