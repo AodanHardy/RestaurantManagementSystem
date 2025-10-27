@@ -15,8 +15,7 @@ public class OrderItem {
     /**
      * Instantiates a new Order item.
      */
-    public OrderItem() {
-    }
+    public OrderItem() {}
 
     /**
      * Instantiates a new Order item.
@@ -47,124 +46,96 @@ public class OrderItem {
      *
      * @return the order item id
      */
-    public int getOrderItemId() {
-        return orderItemId;
-    }
+    public int getOrderItemId() { return orderItemId; }
 
     /**
      * Sets order item id.
      *
      * @param orderItemId the order item id
      */
-    public void setOrderItemId(int orderItemId) {
-        this.orderItemId = orderItemId;
-    }
+    public void setOrderItemId(int orderItemId) { this.orderItemId = orderItemId; }
 
     /**
      * Gets order id.
      *
      * @return the order id
      */
-    public int getOrderId() {
-        return orderId;
-    }
+    public int getOrderId() { return orderId; }
 
     /**
      * Sets order id.
      *
      * @param orderId the order id
      */
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
+    public void setOrderId(int orderId) { this.orderId = orderId; }
 
     /**
      * Gets item id.
      *
      * @return the item id
      */
-    public int getItemId() {
-        return itemId;
-    }
+    public int getItemId() { return itemId; }
 
     /**
      * Sets item id.
      *
      * @param itemId the item id
      */
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
+    public void setItemId(int itemId) { this.itemId = itemId; }
 
     /**
      * Gets quantity.
      *
      * @return the quantity
      */
-    public int getQuantity() {
-        return quantity;
-    }
+    public int getQuantity() { return quantity; }
 
     /**
      * Sets quantity.
      *
      * @param quantity the quantity
      */
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
 
     /**
      * Gets special requests.
      *
      * @return the special requests
      */
-    public String getSpecialRequests() {
-        return specialRequests;
-    }
+    public String getSpecialRequests() { return specialRequests; }
 
     /**
      * Sets special requests.
      *
      * @param specialRequests the special requests
      */
-    public void setSpecialRequests(String specialRequests) {
-        this.specialRequests = specialRequests;
-    }
+    public void setSpecialRequests(String specialRequests) { this.specialRequests = specialRequests; }
 
     /**
      * Gets item price.
      *
      * @return the item price
      */
-    public Double getItemPrice() {
-        return itemPrice;
-    }
+    public Double getItemPrice() { return itemPrice; }
 
     /**
      * Sets item price.
      *
      * @param itemPrice the item price
      */
-    public void setItemPrice(Double itemPrice) {
-        this.itemPrice = itemPrice;
-    }
+    public void setItemPrice(Double itemPrice) { this.itemPrice = itemPrice; }
 
     /**
      * Gets subtotal.
      *
      * @return the subtotal
      */
-    public Double getSubtotal() {
-        return subtotal;
-    }
+    public Double getSubtotal() { return subtotal; }
 
     /**
      * Sets subtotal.
      *
      * @param subtotal the subtotal
      */
-    public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
-    }
+    public void setSubtotal(Double subtotal) { this.subtotal = subtotal; }
 }
